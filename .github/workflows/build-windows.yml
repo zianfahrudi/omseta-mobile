@@ -1,0 +1,50 @@
+name: Build Windows
+
+# Build the Windows desktop app automatically on every push to master,
+# on version tags, and on manual trigger.
+on:
+  push:
+    branches: [master]
+    tags: ['v*']
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.44.2
+          cache: true
+
+      - name: Flutter version
+        run: flutter --version
+
+      - name: Enable Windows desktop
+        run: flutter config --enable-windows-desktop
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze
+        continue-on-error: true
+
+      - name: Build Windows (release)
+        run: flutter build windows --release
+
+      - name: Archive release
+        run: Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath omseta-windows.zip
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: omseta-windows
+          path: omseta-windows.zip
+          if-no-files-found: error

@@ -1,0 +1,50 @@
+name: omseta
+description: "omsetaPOS mobile - Kasir & Absensi Karyawan."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # UI
+  fluent_ui: ^4.15.1
+
+  # Networking
+  dio: ^5.7.0
+
+  # State management
+  provider: ^6.1.2
+
+  # Session storage
+  shared_preferences: ^2.5.5
+
+  # Location / anti-fake GPS for attendance
+  geolocator: ^13.0.2
+
+  # Image upload (QRIS proof / refund evidence)
+  image_picker: ^1.1.2
+
+  # Formatting
+  intl: ^0.20.2
+
+  # Desktop window management (Windows/macOS)
+  window_manager: ^0.4.3
+
+  # Thermal (bluetooth) receipt printing
+  print_bluetooth_thermal: ^1.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
